@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.jpg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
+
+    <title>Автосалон "Шершень"</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   
+<header>
+    <a href="#" id="logo">
+      <img src="logo.jpg" alt="Logo">
+    </a>
+    <h1 id="1">Автосалон "Шершень"</h1>
+    <div class="nav-bar">
+      <a href="#catalog">Каталог</a>
+      <a href="#cart" onclick="showCart()">Кошик</a>
+      <a href="#contacts">Контакти</a>
+    </div>
+    <div class="menu-container">
+      <div class="menu">
+        <button class="custom-auth-btn" id="authButton" onclick="handleAuthAction()">Вхід / Реєстрація</button>
+        <div class="language-switcher">
+            <button id="openFilterModal" class="styled-button">
+                <img src="fi.jpeg.png"  class="icon"> Фільтр за ціною
+            </button>
+          </div>
+        
+      </div>
+    </div>
+    
+  </header>
+ 
+
+
+<!-- Модальне вікно -->
+<div id="filterModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Фільтрувати за ціною</h2>
+        <div class="price-filter">
+            <label for="priceRange">Ціна:</label>
+            <input type="range" id="priceRange" min="100000" max="2500000" step="100000" value="2500000" class="price-slider" onchange="updatePriceLabel(); filterCarsByPrice(this.value);">
+            <span id="priceLabel">2 500 000 грн</span>
+        </div>
+    </div>
+</div>
+
+  <div id="authModal" class="custom-auth-modal" onclick="closeModalOnOutsideClick(event)">
+    <div class="custom-auth-modal-content">
+      <span class="custom-close" onclick="toggleAuthModal()">×</span>
+      <h2 id="authModalTitle">Вхід</h2>
+      <form id="authForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Введіть ваш email" required />
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" placeholder="Введіть ваш пароль" required />
+        <button type="button" onclick="handleLogin()">Увійти</button>
+        <p>Немає акаунта? <a href="#" onclick="showRegister()">Зареєструйтесь</a></p>
+      </form>
+      <form id="registerForm" style="display: none;">
+        <label for="regEmail">Email:</label>
+        <input type="email" id="regEmail" placeholder="Введіть ваш email" required />
+        <label for="regPassword">Пароль:</label>
+        <input type="password" id="regPassword" placeholder="Введіть ваш пароль" required />
+        <label for="regConfirmPassword">Підтвердження пароля:</label>
+        <input type="password" id="regConfirmPassword" placeholder="Підтвердіть пароль" required />
+        <button type="button" onclick="handleRegister()">Зареєструватися</button>
+        <p>Вже є акаунт? <a href="#" onclick="showLogin()">Увійдіть</a></p>
+      </form>
+    </div>
+  </div>
+
+    <!-- Контейнер для контенту -->
+    <div class="container" id="catalog">
+        <h2 class="section-title" data-translate="carSectionTitle">НАЙСВІЖІШІ НОВИНКИ 2024</h2>
+
+        <!-- Список автомобілів -->
+        <div class="car-list" id="carList">
+            <!-- Автомобілі -->
+            <div class="car-item">
+                <img src="ford.jpg" alt="Ford Mustang" onclick="openLargeImage('mustang1.jpg')">
+                <h3 class="car-title">Ford Mustang</h3>
+                <p class="car-price">Ціна: 800 000 грн</p>
+                <button class="btn" onclick="showCarDetails('Ford Mustang')">Детальніше</button>
+                <button class="btn btn-add-to-cart" onclick="addToCart('Ford Mustang')">Додати в кошик</button>
+            </div>
+            <div class="car-item">
+                <img src="camaro.jpg" alt="Chevrolet Camaro" onclick="openLargeImage('camaro1.jpg')">
+                <h3 class="car-title">Chevrolet Camaro</h3>
+                <p class="car-price">Ціна: 900 000 грн</p>
+                <button class="btn" onclick="showCarDetails('Chevrolet Camaro')">Детальніше</button>
+                <button class="btn btn-add-to-cart" onclick="addToCart('Chevrolet Camaro')">Додати в кошик</button>
+            </div>
+            <div class="car-item">
+                <img src="bmw4.jpg" alt="BMW M4" onclick="openLargeImage('bmw1.jpg')">
+                <h3 class="car-title">BMW M4</h3>
+                <p class="car-price">Ціна: 1 200 000 грн</p>
+                <button class="btn" onclick="showCarDetails('BMW M4')">Детальніше</button>
+                <button class="btn btn-add-to-cart" onclick="addToCart('BMW M4')">Додати в кошик</button>
+            </div>
+            <div class="car-item">
+                <img src="audi.jpg" alt="Audi A5" onclick="openLargeImage('audi1.jpg')">
+                <h3 class="car-title">Audi A5</h3>
+                <p class="car-price">Ціна: 1 150 000 грн</p>
+                <button class="btn" onclick="showCarDetails('Audi A5')">Детальніше</button>
+                <button class="btn btn-add-to-cart" onclick="addToCart('Audi A5')">Додати в кошик</button>
+            </div>
+            <div class="car-item">
+                <img src="mers.jpg" alt="Mercedes-Benz C-Class" onclick="openLargeImage('mercedes1.jpg')">
+                <h3 class="car-title">Mercedes-Benz C-Class</h3>
+                <p class="car-price">Ціна: 1 300 000 грн</p>
+                <button class="btn" onclick="showCarDetails('Mercedes-Benz C-Class')">Детальніше</button>
+                <button class="btn btn-add-to-cart" onclick="addToCart('Mercedes-Benz C-Class')">Додати в кошик</button>
+            </div>
+            <div class="car-item">
+                <img src="porshe.jpg" alt="Porsche 911" onclick="openLargeImage('porsche1.jpg')">
+                <h3 class="car-title">Porsche 911</h3>
+                <p class="car-price">Ціна: 2 500 000 грн</p>
+                <button class="btn" onclick="showCarDetails('Porsche 911')">Детальніше</button>
+                <button class="btn btn-add-to-cart" onclick="addToCart('Porsche 911')">Додати в кошик</button>
+            </div>
+            <div class="car-item">
+                <img src="golf.jpg" alt="Volkswagen Golf" onclick="openLargeImage('golf1.jpg')">
+                <h3 class="car-title">Volkswagen Golf</h3>
+                <p class="car-price">Ціна: 750 000 грн</p>
+                <button class="btn" onclick="showCarDetails('Volkswagen Golf')">Детальніше</button>
+                <button class="btn btn-add-to-cart" onclick="addToCart('Volkswagen Golf')">Додати в кошик</button>
+            </div>
+            <div class="car-item">
+                <img src="nissan.jpg" alt="Nissan Altima" onclick="openLargeImage('altima1.jpg')">
+                <h3 class="car-title">Nissan Altima</h3>
+                <p class="car-price">Ціна: 850 000 грн</p>
+                <button class="btn" onclick="showCarDetails('Nissan Altima')">Детальніше</button>
+                <button class="btn btn-add-to-cart" onclick="addToCart('Nissan Altima')">Додати в кошик</button>
+            </div>
+            <div class="car-item">
+                <img src="subaru.jpg" alt="Subaru Outback" onclick="openLargeImage('outback1.jpg')">
+                <h3 class="car-title">Subaru Outback</h3>
+                <p class="car-price">Ціна: 1 000 000 грн</p>D
+                <button class="btn" onclick="showCarDetails('Subaru Outback')">Детальніше</button>
+                <button class="btn btn-add-to-cart" onclick="addToCart('Subaru Outback')">Додати в кошик</button>
+            </div>
+        </div>
+        <!-- Кошик -->
+        <div class="cart" id="cart" style="display: none;">
+            <h2>Ваш кошик</h2>
+            <div id="cartItems"></div>
+            <p id="totalPrice" style="font-weight: bold;">Разом: 0 грн</p>
+            <button class="btn" id="buyButton" onclick="buyCart()">Купити</button>
+        </div>
+    </div>
+    <div class="container" id="contacts" style="display: none;">
+        <h2 class="section-title">Контакти</h2>
+        <p>Телефон: +380 123 456 789</p>
+        <p>Email: shersheni@vpu21.if.ua</p>
+        <p>Адреса: м.Івано-Франківськ с.Підлужжя</p>
+    </div>
+    <!-- Модальне вікно для деталей автомобіля -->
+    <div id="carModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-gallery" id="modalGallery"></div>
+            <h3 id="modalTitle"></h3>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+    <!-- Модальне вікно для великого зображення -->
+    <div id="largeImageModal" class="large-image-modal">
+        <div class="large-image-modal-content">
+            <span class="large-image-close" onclick="closeLargeImage()">&times;</span>
+            <img id="largeImage" src="" alt="Велике зображення">
+        </div>   
+    </div>
+    <script src="script.js"></script>
+ 
+</script>
+</body> 
+   
+</body>
+</html>
